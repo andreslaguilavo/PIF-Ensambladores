@@ -29,14 +29,16 @@ export default function HistorialCarousel({
         <CarouselContent>
           {historial.map((item, index) => (
             <CarouselItem
-              className='basis-1/4 text-center w-full'
+              className='basis-auto sm:basis-1/2 lg:basis-1/4 text-center w-full'
               key={index}
               onClick={() => {
                 onClickBadge(item)
               }}
             >
-              <Badge className='bg-amber-400 text-black hover:text-white cursor-pointer w-full justify-center'>
+              <Badge className='bg-amber-400 text-black hover:text-white cursor-pointer px-3 w-full'>
+                <p className='truncate'>
                 {item}
+                </p>
               </Badge>
             </CarouselItem>
           ))}
