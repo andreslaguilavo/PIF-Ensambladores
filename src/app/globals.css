@@ -80,3 +80,11 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+section {
+  @apply w-full py-10 flex flex-col gap-10;
+
+  h2 {
+    @apply text-4xl font-bold;
+  }
+}

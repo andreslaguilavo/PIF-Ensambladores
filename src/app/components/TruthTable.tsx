@@ -12,7 +12,7 @@ import type { TruthTableData } from '@/app/lib/truthTableCore'
 
 export default function TruthTable({ data }: { data: TruthTableData }) {
   return (
-    <section className='w-full' id='truth-table'>
+    <section id='truth-table'>
       <h2>Tabla de verdad </h2>
       <Table className='overflow-y-auto'>
         <TableCaption>A list of your recent costs.</TableCaption>

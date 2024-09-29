@@ -39,7 +39,7 @@ export default function Home() {
     setValue(value)
   }
   return (
-    <main className='min-h-screen h-full font-firacode'>
+    <main className='min-h-screen font-firacode '>
       <MaxWidthWrapper>
         <div className='flex flex-col justify-center items-center gap-5'>
           <h1 className='font-display text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl xl:text-6.5xl text-center'>
