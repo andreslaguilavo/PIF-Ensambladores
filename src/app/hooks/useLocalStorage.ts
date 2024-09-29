@@ -2,25 +2,33 @@
 import { useEffect, useState } from 'react'
 
 export const useLocalStorage = <T>(key: string, initialValue: T) => {
-  if (window === undefined) return [initialValue, () => {}] as const
-  const getInitialValue = () => {
-    try {
-      const item = localStorage.getItem(key)
-      return item ? JSON.parse(item) : initialValue
-    } catch (error) {
-      console.error('Error leyendo la ' + key + '”: ', error)
-      return initialValue
-    }
-  }
-
-
-  const [storedValue, setStoredValue] = useState<T>(getInitialValue)
+  const [storedValue, setStoredValue] = useState<T>(initialValue)
+  const [isInitialized, setIsInitialized] = useState(false)
 
   useEffect(() => {
-    try {
-      localStorage.setItem(key, JSON.stringify(storedValue))
-    } catch (error) {
-      console.error('Error setting localStorage key “' + key + '”: ', error)
+    if (typeof window === 'undefined') return
+
+    const getInitialValue = (): T => {
+      try {
+        const item = localStorage.getItem(key)
+        return item !== null ? JSON.parse(item) : initialValue
+      } catch (error) {
+        console.error('Error leyendo la ' + key + '”: ', error)
+        return initialValue
+      }
+    }
+
+    setStoredValue(getInitialValue())
+    setIsInitialized(true)
+  }, [])
+
+  useEffect(() => {
+    if (isInitialized) {
+      try {
+        localStorage.setItem(key, JSON.stringify(storedValue))
+      } catch (error) {
+        console.error('Error setting localStorage key “' + key + '”: ', error)
+      }
     }
   }, [storedValue])
 

@@ -5,17 +5,19 @@ import MaxWidthWrapper from '@components/shared/MaxWidthWrapper'
 import HistorialCarousel from '@components/HistorialCarousel'
 import { useState } from 'react'
 import { useLocalStorage } from '@/app/hooks/useLocalStorage'
-import { generateTruthTable } from '@/app/lib/truthTableCore'
+import {
+  generateTruthTable,
+  type TruthTableData
+} from '@/app/lib/truthTableCore'
 import TruthTable from '@components/TruthTable'
 import MaxTerms from '@components/MaxTerms'
 import TimeLine from '@components/TimeLine'
 import MinTerms from '@components/MinTerms'
 
 export default function Home() {
-  console.log('hsad')
   const [value, setValue] = useState('')
   const [historial, setHistorial] = useLocalStorage<string[]>('historial', [])
-  const [data, setData] = useState<any>()
+  const [data, setData] = useState<TruthTableData | null>(null)
   const saveHistorial = (value: string) => {
     setHistorial((prev) => {
       if (historial.length > 10) {
@@ -60,14 +62,16 @@ export default function Home() {
               onClickBadge={updateInputByHistorial}
             />
           </div>
-          <div className='relative w-full flex  gap-5'>
-            <TimeLine/>
-            <div>
-              <TruthTable data={data} />
-              <MaxTerms />
-              <MinTerms />
+          {data !== null && (
+            <div className='relative w-full flex  gap-5'>
+              <TimeLine />
+              <div>
+                <TruthTable data={data} />
+                <MaxTerms />
+                <MinTerms />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </MaxWidthWrapper>
     </main>
