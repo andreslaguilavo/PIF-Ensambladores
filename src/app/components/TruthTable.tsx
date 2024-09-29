@@ -19,7 +19,7 @@ export default function TruthTable({ data }: { data: TruthTableData }) {
         <TooltipInfo />
       </div>
       <Table className='overflow-y-auto'>
-        <TableCaption>A list of your recent costs.</TableCaption>
+        <TableCaption>Tabla de verdad</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className='min-w'></TableHead>
