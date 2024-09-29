@@ -1,6 +1,6 @@
 'use client'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Button } from '@components/ui/button'
+import { Input } from '@components/ui/input'
 import MaxWidthWrapper from '@components/shared/MaxWidthWrapper'
 import HistorialCarousel from '@components/HistorialCarousel'
 import { useState } from 'react'

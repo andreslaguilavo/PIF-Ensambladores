@@ -27,5 +27,6 @@
     "@typescript-eslint/no-floating-promises": "off",
     "react-hooks/exhaustive-deps": "off",
     "@typescript-eslint/non-nullable-type-assertion-style": "off"
-  }
+  },
+  "ignorePatterns": ["src/app/components/ui/*.tsx"]
 }

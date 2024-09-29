@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
   TableCaption
-} from '@/components/ui/table'
+} from '@components/ui/table'
 import type { TruthTableData } from '@/app/lib/truthTableCore'
 
 export default function TruthTable({ data }: { data: TruthTableData }) {
