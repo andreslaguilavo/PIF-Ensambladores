@@ -10,17 +10,17 @@ export type TruthTableData = ReturnType<typeof generateTruthTable>
 export const generateTruthTable = (expression: string) => {
   // Get the variables from the expression
   const variables = expression.toUpperCase().match(/[A-Z]/g) as string[] | null
-
-  if (variables === null) throw new Error('No hay variables')
-  if (variables?.length > 4) throw new Error('Demasiadas variables')
+  const uniqueVariables = Array.from(new Set(variables))
+  if (uniqueVariables === null) throw new Error('No hay variables')
+  if (uniqueVariables?.length > 4) throw new Error('Demasiadas variables')
 
   const truthTable = []
 
-  for (let i = 0; i < 2 ** variables.length; i++) {
+  for (let i = 0; i < 2 ** uniqueVariables.length; i++) {
     const row: Record<string, boolean> = {}
-    variables.forEach((variable, index) => {
+    uniqueVariables.forEach((variable, index) => {
       // Logic to create the truth table
-      row[variable] = Boolean(i & (1 << (variables.length - index - 1)))
+      row[variable] = Boolean(i & (1 << (uniqueVariables.length - index - 1)))
     })
     // console.log('Resultado:', evaluateExpression(expression, row))
 
@@ -29,7 +29,7 @@ export const generateTruthTable = (expression: string) => {
       results: evaluateExpression(expression, row)
     })
   }
-  const headers = variables.concat(
+  const headers = uniqueVariables.concat(
     truthTable[0].results.map((result) => result.expression)
   )
   return { headers, data: truthTable }
