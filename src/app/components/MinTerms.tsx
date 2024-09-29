@@ -1,9 +1,12 @@
-import React from 'react'
+import TooltipInfo from '@components/shared/TooltipInfo'
 
 export default function MinTerms() {
   return (
     <section id='min-terms'>
-      <h2>Min Terminos</h2>
+      <div className='flex gap-4'>
+        <h2>Min Términos</h2>
+        <TooltipInfo />
+      </div>
       <div>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate
         debitis amet in! Quas voluptate asperiores ullam saepe iusto, blanditiis

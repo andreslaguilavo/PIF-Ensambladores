@@ -9,11 +9,15 @@ import {
   TableCaption
 } from '@components/ui/table'
 import type { TruthTableData } from '@/app/lib/truthTableCore'
+import TooltipInfo from '@components/shared/TooltipInfo'
 
 export default function TruthTable({ data }: { data: TruthTableData }) {
   return (
     <section id='truth-table'>
-      <h2>Tabla de verdad </h2>
+      <div className='flex gap-4'>
+        <h2>Tabla de verdad </h2>
+        <TooltipInfo />
+      </div>
       <Table className='overflow-y-auto'>
         <TableCaption>A list of your recent costs.</TableCaption>
         <TableHeader>
