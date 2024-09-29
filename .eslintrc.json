@@ -24,7 +24,8 @@
     "multiline-ternary": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/no-confusing-void-expression": "off",
-    "@typescript-eslint/no-floating-promises" : "off",
-    "react-hooks/exhaustive-deps": "off"
+    "@typescript-eslint/no-floating-promises": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/non-nullable-type-assertion-style": "off"
   }
 }

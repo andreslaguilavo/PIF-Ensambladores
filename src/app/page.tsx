@@ -2,39 +2,49 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import MaxWidthWrapper from '@components/shared/MaxWidthWrapper'
-// import jsep from 'jsep'
 import HistorialCarousel from '@components/HistorialCarousel'
 import { useState } from 'react'
 import { useLocalStorage } from '@/app/hooks/useLocalStorage'
+import { generateTruthTable } from '@/app/lib/truthTableCore'
+import TruthTable from '@components/TruthTable'
+import MaxTerms from '@components/MaxTerms'
+import TimeLine from '@components/TimeLine'
+import MinTerms from '@components/MinTerms'
 
 export default function Home() {
+  console.log('hsad')
   const [value, setValue] = useState('')
   const [historial, setHistorial] = useLocalStorage<string[]>('historial', [])
-
-  const evalEquation = (evt: React.FormEvent<HTMLFormElement>) => {
-    evt.preventDefault()
+  const [data, setData] = useState<any>()
+  const saveHistorial = (value: string) => {
     setHistorial((prev) => {
       if (historial.length > 10) {
         historial.pop()
       }
-      return [value, ...prev]
+      return [...new Set([value, ...prev])]
     })
+  }
+  const evalEquation = (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault()
+    if (value === '') return
+    saveHistorial(value)
     setValue('')
+    const truthTable = generateTruthTable(value)
+    setData(truthTable)
   }
 
   const updateInputByHistorial = (value: string) => {
     setValue(value)
   }
-  console.log(historial)
   return (
-    <main className='my-10'>
+    <main className='min-h-screen h-full'>
       <MaxWidthWrapper>
         <div className='flex flex-col justify-center items-center gap-5'>
           <h1 className='font-display text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl xl:text-6.5xl text-center'>
             Conoce todas las <br /> compuertas lógicas
           </h1>
           <p>Ingresa una ecuación </p>
-          <div className='flex flex-col w-3/5 justify-center items-center gap-5'>
+          <div className='flex flex-col w-full md:w-3/5 justify-center items-center gap-5'>
             <form onSubmit={evalEquation} className='flex w-full gap-5'>
               <Input
                 placeholder='A+B'
@@ -49,6 +59,14 @@ export default function Home() {
               historial={historial}
               onClickBadge={updateInputByHistorial}
             />
+          </div>
+          <div className='relative w-full flex  gap-5'>
+            <TimeLine/>
+            <div>
+              <TruthTable data={data} />
+              <MaxTerms />
+              <MinTerms />
+            </div>
           </div>
         </div>
       </MaxWidthWrapper>

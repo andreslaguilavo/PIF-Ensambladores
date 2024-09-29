@@ -1,10 +1,12 @@
 import jsep, { type Expression } from 'jsep'
 
-jsep.addBinaryOp('^', 10) // Add Symbol for XOR
+jsep.addBinaryOp('!&', 10) // Add Symbol for NAND
+jsep.addBinaryOp('!|', 10) // Add Symbol for NOR
+jsep.addBinaryOp('!^', 10) // Add Symbol for XOR
 jsep.addBinaryOp('!^', 10) // Add Symbol for XOR
 
 export type VariablesType = Record<string, boolean>
-
+export type TruthTableData = ReturnType<typeof generateTruthTable>
 export const generateTruthTable = (expression: string) => {
   // Get the variables from the expression
   const variables = expression.toUpperCase().match(/[A-Z]/g) as string[] | null
@@ -20,31 +22,39 @@ export const generateTruthTable = (expression: string) => {
       // Logic to create the truth table
       row[variable] = Boolean(i & (1 << (variables.length - index - 1)))
     })
-    console.log('Resultado:', evaluateExpression(expression, row))
+    // console.log('Resultado:', evaluateExpression(expression, row))
 
-    truthTable.push(row)
+    truthTable.push({
+      variables: row,
+      results: evaluateExpression(expression, row)
+    })
   }
+  const headers = variables.concat(
+    truthTable[0].results.map((result) => result.expression)
+  )
+  return { headers, data: truthTable }
+}
 
-  console.log(truthTable)
-  return truthTable
+interface EquationsType {
+  expression: string
+  result: boolean
 }
 
 export const evaluateExpression = (
   expression: string,
   variables: VariablesType
 ) => {
-  const equations: string[] = [] // Array to store the equations
+  const equations: EquationsType[] = [] // Array to store the equations
   const ast = jsep(expression) // Parse the expression to an AST (Abstract Syntax Tree)
   evaluateAndAddValue(ast, variables, equations)
-  console.log('Ecuaciones registradas:', equations)
-  console.log('Resultado:', ast)
-  return ast.value
+  // console.log('Ecuaciones registradas:', equations)
+  return equations
 }
 
 function evaluateAndAddValue(
   node: Expression,
   variables: VariablesType,
-  equations: string[]
+  equations: EquationsType[]
 ): boolean {
   if (node.type === 'UnaryExpression') {
     const argument = evaluateAndAddValue(
@@ -59,7 +69,7 @@ function evaluateAndAddValue(
       ((node?.argument as Expression).name as string) ??
       getExpression(node?.argument as Expression)
     }`
-    equations.push(expression)
+    equations.push({ expression, result: node.value })
 
     return node.value
   } else if (node.type === 'BinaryExpression') {
@@ -75,11 +85,17 @@ function evaluateAndAddValue(
     )
 
     switch (node.operator) {
-      case '&&':
+      case '&': // AND
         node.value = left && right
         break
-      case '||':
+      case '|': // OR
         node.value = left || right
+        break
+      case '!&': // NAND
+        node.value = !(left && right)
+        break
+      case '!|': // NOR
+        node.value = !(left || right)
         break
       case '^': // XOR
         node.value = left !== right
@@ -95,7 +111,10 @@ function evaluateAndAddValue(
     const leftExpression = getExpression(node.left as Expression)
     const rightExpression = getExpression(node.right as Expression)
     const expression = `${leftExpression} ${node.operator} ${rightExpression}`
-    equations.push(expression)
+    equations.push({
+      expression,
+      result: node.value
+    })
 
     return node.value
   } else if (node.type === 'Identifier') {
