@@ -39,7 +39,7 @@ export default function Home() {
     setValue(value)
   }
   return (
-    <main className='min-h-screen h-full'>
+    <main className='min-h-screen h-full font-firacode'>
       <MaxWidthWrapper>
         <div className='flex flex-col justify-center items-center gap-5'>
           <h1 className='font-display text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl xl:text-6.5xl text-center'>
@@ -50,11 +50,11 @@ export default function Home() {
             <form onSubmit={evalEquation} className='flex w-full gap-5'>
               <Input
                 placeholder='A+B'
-                className=''
+                className='font-bold text-2xl h-14'
                 value={value}
                 onChange={(evt) => setValue(evt.target.value)}
               />
-              <Button>Enviar</Button>
+              <Button className='h-auto'>Enviar</Button>
             </form>
 
             <HistorialCarousel
