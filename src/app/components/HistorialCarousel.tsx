@@ -23,22 +23,20 @@ export default function HistorialCarousel({
     )
   }
   return (
-    <div className='flex gap-20 relative w-full '>
-      <Badge>Historial</Badge>
-      <Carousel className='w-[75%]' opts={{ align: 'center' }}>
+    <div className='flex flex-col md:flex-row md:gap-20 gap-5 relative w-full justify-center items-center md:justify-start'>
+      <Badge className='w-full md:w-fit'>Historial</Badge>
+      <Carousel className='w-[73%] ' opts={{ align: 'center' }}>
         <CarouselContent>
           {historial.map((item, index) => (
             <CarouselItem
-              className='basis-auto sm:basis-1/2 lg:basis-1/4 text-center w-full'
+              className='basis-1/2 lg:basis-1/4 text-center w-full'
               key={index}
               onClick={() => {
                 onClickBadge(item)
               }}
             >
               <Badge className='bg-amber-400 text-black hover:text-white cursor-pointer px-3 w-full'>
-                <p className='truncate'>
-                {item}
-                </p>
+                <p className='truncate'>{item}</p>
               </Badge>
             </CarouselItem>
           ))}
