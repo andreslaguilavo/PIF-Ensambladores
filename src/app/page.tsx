@@ -38,6 +38,7 @@ export default function Home() {
   const updateInputByHistorial = (value: string) => {
     setValue(value)
   }
+
   return (
     <main className='min-h-screen font-firacode '>
       <MaxWidthWrapper>
@@ -67,8 +68,8 @@ export default function Home() {
               <TimeLine />
               <div>
                 <TruthTable data={data} />
-                <MaxTerms />
-                <MinTerms />
+                <MaxTerms data={data} />
+                <MinTerms data={data} />
               </div>
             </div>
           )}
