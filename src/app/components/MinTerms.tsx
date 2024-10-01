@@ -17,7 +17,7 @@ export default function MinTerms({ data }: { data: TruthTableData }) {
         <h2>Min Términos</h2>
         <TooltipInfo />
       </div>
-      <div>
+      <div className='text-center'>
         {minTerms.map((minTerm, index) => (
           <Fragment key={minTerm.index}>
             <TooltipProvider delayDuration={0}>

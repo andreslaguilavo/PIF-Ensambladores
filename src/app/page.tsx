@@ -66,7 +66,7 @@ export default function Home() {
           {data !== null && (
             <div className='relative w-full flex  gap-5'>
               <TimeLine />
-              <div>
+              <div className='w-full'>
                 <TruthTable data={data} />
                 <MaxTerms data={data} />
                 <MinTerms data={data} />

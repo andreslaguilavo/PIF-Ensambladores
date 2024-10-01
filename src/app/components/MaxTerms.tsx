@@ -16,7 +16,7 @@ export default function MaxTerms({ data }: { data: TruthTableData }) {
         <h2>Max Términos</h2>
         <TooltipInfo />
       </div>
-      <div>
+      <div className='text-center'>
         {maxTerms.map((maxTerm) => (
           <TooltipProvider key={maxTerm.index} delayDuration={0}>
             <Tooltip>
