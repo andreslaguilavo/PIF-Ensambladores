@@ -36,7 +36,7 @@ export default function HistorialCarousel({
               }}
             >
               <Badge className='bg-amber-400 text-black hover:text-white cursor-pointer px-3 w-full justify-center'>
-                <p className='truncate'>{item}</p>
+                <p className='truncate' title={item}>{item}</p>
               </Badge>
             </CarouselItem>
           ))}
