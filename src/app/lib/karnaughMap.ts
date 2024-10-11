@@ -58,3 +58,13 @@ export const generateKarnaughMap = (
 
   return structureTable
 }
+
+export const getHeadersKarMap = (variables: string[]) => {
+  const midIndex = Math.floor(variables.length / 2)
+
+  // Dividir el array en dos mitades
+  const firstHalf = variables.slice(0, midIndex) // Desde el inicio hasta el medio
+  const secondHalf = variables.slice(midIndex) // Desde el medio hasta el final
+
+  return [firstHalf, secondHalf]
+}

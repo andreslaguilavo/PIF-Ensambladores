@@ -2,6 +2,7 @@ import React from 'react'
 import type { TruthTableData } from '@/app/lib/truthTableCore'
 import {
   generateKarnaughMap,
+  getHeadersKarMap,
   referenceTableHeaders
 } from '@/app/lib/karnaughMap'
 import {
@@ -21,7 +22,7 @@ export default function KarnaughMap({ data }: { data: TruthTableData }) {
   })
 
   const karnaughData = generateKarnaughMap(variables, results)
-  console.log(karnaughData)
+  const [hRows, hCols] = getHeadersKarMap(variables)
 
   return (
     <section id='karnaugh-map'>
@@ -32,7 +33,9 @@ export default function KarnaughMap({ data }: { data: TruthTableData }) {
         <TableCaption>Mapa de Karnaugh</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className='min-w'></TableHead>
+            <TableHead className='text-center font-extrabold'>
+              {hRows.join('')}\{hCols.join('')}
+            </TableHead>
             {referenceTableHeaders[variables.length].cols.map(
               (header, index: number) => (
                 <TableHead key={index} className='text-center font-bold'>
@@ -57,53 +60,8 @@ export default function KarnaughMap({ data }: { data: TruthTableData }) {
               ))}
             </TableRow>
           ))}
-          {/* {data?.data?.map((row, index: number) => (
-            <TableRow key={index}>
-              <TableCell className='text-center text-xs text-gray-400 min-w'>
-                {index}
-              </TableCell>
-
-              {Object.values(row.variables).map(
-                (value: boolean, index: number) => (
-                  <TableCell key={index} className='text-center'>
-                    {value ? '1' : '0'}
-                  </TableCell>
-                )
-              )}
-
-              {row.results.map((result, index: number) => (
-                <TableCell key={index} className='text-center'>
-                  {result.result ? '1' : '0'}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))} */}
         </TableBody>
       </Table>
     </section>
-    // <table>
-    //   <thead>
-    //     <tr>
-    //       <th></th>
-    //       {headers}
-    //     </tr>
-    //   </thead>
-    //   <tbody className='m-10'>
-    //     {truthTable.map((row, rowIndex) => (
-    //       <tr key={rowIndex} className=''>
-    //         <th className='mx-10'>AB = {rowIndex.toString(2).padStart(2, '0')}</th>
-    //         {row.map((value, colIndex) => (
-    //           <td
-    //             key={colIndex}
-    //             className='border border-black text-center m-10'
-    //           >
-    //             {value !== null ? value : '-'}{' '}
-    //             {/* Mostrar el valor o un guion si es nulo */}
-    //           </td>
-    //         ))}
-    //       </tr>
-    //     ))}
-    //   </tbody>
-    // </table>
   )
 }
