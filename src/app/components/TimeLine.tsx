@@ -13,6 +13,10 @@ const sections = [
   {
     id: 'min-terms',
     name: 'Min Términos'
+  },
+  {
+    id: 'karnaugh-map',
+    name: 'Mapa de Karnaugh'
   }
 ]
 export default function TimeLine() {
@@ -32,9 +36,10 @@ export default function TimeLine() {
       },
       { threshold: 0.2 }
     )
-    observer.observe(document.getElementById('truth-table') as HTMLElement)
-    observer.observe(document.getElementById('max-terms') as HTMLElement)
-    observer.observe(document.getElementById('min-terms') as HTMLElement)
+
+    for (const section of sections) {
+      observer.observe(document.getElementById(section.id) as HTMLElement)
+    }
     return () => {
       observer.disconnect()
     }

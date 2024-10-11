@@ -13,6 +13,7 @@ import TruthTable from '@components/TruthTable'
 import MaxTerms from '@components/MaxTerms'
 import TimeLine from '@components/TimeLine'
 import MinTerms from '@components/MinTerms'
+import KarnaughMap from '@components/KarnaughMap'
 
 export default function Home() {
   const [value, setValue] = useState('')
@@ -70,6 +71,7 @@ export default function Home() {
                 <TruthTable data={data} />
                 <MaxTerms data={data} />
                 <MinTerms data={data} />
+                <KarnaughMap data={data}/>
               </div>
             </div>
           )}
