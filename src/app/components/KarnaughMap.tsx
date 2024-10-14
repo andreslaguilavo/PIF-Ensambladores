@@ -3,6 +3,7 @@ import type { TruthTableData } from '@/app/lib/truthTableCore'
 import {
   generateKarnaughMap,
   getHeadersKarMap,
+  getReduceExpression,
   referenceTableHeaders
 } from '@/app/lib/karnaughMap'
 import {
@@ -23,6 +24,7 @@ export default function KarnaughMap({ data }: { data: TruthTableData }) {
 
   const karnaughData = generateKarnaughMap(variables, results)
   const [hRows, hCols] = getHeadersKarMap(variables)
+  const reducedExpression = getReduceExpression(variables, karnaughData)
 
   return (
     <section id='karnaugh-map'>
@@ -46,8 +48,7 @@ export default function KarnaughMap({ data }: { data: TruthTableData }) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-          </TableRow>
+          <TableRow></TableRow>
           {karnaughData.map((row, index: number) => (
             <TableRow key={index}>
               <TableHead key={index} className='text-center font-bold'>
@@ -62,6 +63,16 @@ export default function KarnaughMap({ data }: { data: TruthTableData }) {
           ))}
         </TableBody>
       </Table>
+      <p className='text-center flex flex-col gap-2 '>
+        La expresión reducida es: <br />
+        <div className='flex flex-col gap-2'>
+          <span className='font-bold'>R = {reducedExpression}</span>
+          <small className='text-xs text-slate-400 font-light'>
+            La expresión simplificada se obtuvo a partir de la minimización de
+            los maxtérminos.
+          </small>
+        </div>
+      </p>
     </section>
   )
 }
