@@ -34,7 +34,7 @@ export default function TimeLine() {
           }
         })
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     )
 
     for (const section of sections) {

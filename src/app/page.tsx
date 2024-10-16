@@ -13,6 +13,8 @@ import MinTerms from '@components/MinTerms'
 import KarnaughMap from '@components/KarnaughMap'
 import { useData } from '@/app/hooks/useData'
 import { useTab } from '@/app/hooks/useTab'
+import { toast } from 'sonner'
+import SymbolExplanation from '@components/shared/SymbolExplanation'
 
 export default function Home() {
   const [value, setValue] = useState('')
@@ -31,11 +33,15 @@ export default function Home() {
   const evalEquation = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
     if (value === '') return
-    saveHistorial(value)
-    setValue('')
-    const truthTable = generateTruthTable(value)
-    setData(truthTable)
-    setCurrentTab('solution')
+    try {
+      const truthTable = generateTruthTable(value)
+      saveHistorial(value)
+      setValue('')
+      setData(truthTable)
+      setCurrentTab('solution')
+    } catch (error: unknown) {
+      toast.error('Error al evaluar la ecuación : ' + (error as string))
+    }
   }
 
   const updateInputByHistorial = (value: string) => {
@@ -48,7 +54,10 @@ export default function Home() {
           <h1 className='font-display text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl xl:text-6.5xl text-center'>
             Conoce todas las <br /> compuertas lógicas
           </h1>
-          <p>Ingresa una ecuación </p>
+          <div className='flex items-center gap-2'>
+            <p>Ingresa una ecuación </p>
+            <SymbolExplanation />
+          </div>
           <div className='flex flex-col w-full md:w-3/5 justify-center items-center gap-5'>
             <form onSubmit={evalEquation} className='flex w-full gap-5'>
               <Input

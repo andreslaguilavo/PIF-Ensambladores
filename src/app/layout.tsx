@@ -3,6 +3,7 @@ import localFont from 'next/font/local'
 import { Fira_Code } from 'next/font/google'
 import './globals.css'
 import Providers from '@components/shared/Providers'
+import { Toaster } from '@components/ui/sonner'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${firaCode.variable} antialiased`}
       >
+        <Toaster richColors theme='light'/>
         <Providers>{children}</Providers>
       </body>
     </html>

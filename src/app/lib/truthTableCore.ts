@@ -13,7 +13,7 @@ export const generateTruthTable = (expression: string) => {
   const uniqueVariables = Array.from(new Set(variables))
   if (uniqueVariables === null) throw new Error('No hay variables')
   if (uniqueVariables?.length > 4) throw new Error('Demasiadas variables')
-
+  if (uniqueVariables?.length < 2) throw new Error('Muy pocas variables')
   const truthTable = []
 
   for (let i = 0; i < 2 ** uniqueVariables.length; i++) {
@@ -23,10 +23,10 @@ export const generateTruthTable = (expression: string) => {
       row[variable] = Boolean(i & (1 << (uniqueVariables.length - index - 1)))
     })
     // console.log('Resultado:', evaluateExpression(expression, row))
-
+    console.log(row)
     truthTable.push({
       variables: row,
-      results: evaluateExpression(expression, row)
+      results: evaluateExpression(expression.toUpperCase(), row)
     })
   }
   const headers = uniqueVariables.concat(
