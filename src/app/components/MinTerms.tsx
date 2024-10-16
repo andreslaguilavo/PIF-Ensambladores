@@ -1,18 +1,10 @@
-import type { TruthTableData } from '@/app/lib/truthTableCore'
-import { getMinTerms } from '@/app/lib/minTerms'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger
-} from '@components/ui/tooltip'
-import { Fragment } from 'react'
 import {
   TabExplanation,
   TabSolution,
   TabsTopic
 } from '@components/shared/TabsTopic'
 import MinTermSolution from '@components/MinTerms/MinTermSolution'
+import MinTermExplanation from './MinTerms/MinTermExplanation'
 
 export default function MinTerms() {
   return (
@@ -20,7 +12,9 @@ export default function MinTerms() {
       <div className='flex gap-4 items-center justify-between'>
         <h2>Min Términos</h2>
         <TabsTopic nameSection='min-terms'>
-          <TabExplanation>sdsagsakjhjhjksahdlkajsh</TabExplanation>
+          <TabExplanation>
+            <MinTermExplanation />
+          </TabExplanation>
           <TabSolution>
             <MinTermSolution />
           </TabSolution>
