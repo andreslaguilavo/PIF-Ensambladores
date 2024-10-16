@@ -1,4 +1,4 @@
-import { getMinTerms } from '@/app/lib/minTerms'
+import { getMinTerms } from '@/app/lib/minTermsCore'
 import {
   Tooltip,
   TooltipContent,

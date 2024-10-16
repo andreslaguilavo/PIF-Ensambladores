@@ -6,6 +6,7 @@ interface PortalProps {
 }
 
 export default function Portal({ children, containerId }: PortalProps) {
-  const container = document.getElementById(containerId)
+  if (typeof window === 'undefined') return
+  const container = window.document.getElementById(containerId)
   return container !== null ? createPortal(children, container) : null
 }

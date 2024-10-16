@@ -117,24 +117,24 @@ export const getCellsWithZeroOrOne = (
   return cellsWithOne
 }
 
-const cellsToCheck: Record<number, number[]> = {
-  0: [1, 4, 2, 8],
-  1: [0, 3, 5, 9],
-  2: [3, 0, 6, 10],
-  3: [2, 1, 7, 11],
-  4: [5, 0, 6, 12],
-  5: [4, 1, 7, 13],
-  6: [7, 2, 4, 14],
-  7: [6, 3, 5, 15],
-  8: [9, 10, 0, 12],
-  9: [8, 11, 1, 13],
-  10: [11, 8, 2, 14],
-  11: [10, 9, 3, 15],
-  12: [13, 8, 14, 4],
-  13: [12, 9, 15, 5],
-  14: [15, 10, 12, 6],
-  15: [14, 11, 13, 7]
-}
+// const cellsToCheck: Record<number, number[]> = {
+//   0: [1, 4, 2, 8],
+//   1: [0, 3, 5, 9],
+//   2: [3, 0, 6, 10],
+//   3: [2, 1, 7, 11],
+//   4: [5, 0, 6, 12],
+//   5: [4, 1, 7, 13],
+//   6: [7, 2, 4, 14],
+//   7: [6, 3, 5, 15],
+//   8: [9, 10, 0, 12],
+//   9: [8, 11, 1, 13],
+//   10: [11, 8, 2, 14],
+//   11: [10, 9, 3, 15],
+//   12: [13, 8, 14, 4],
+//   13: [12, 9, 15, 5],
+//   14: [15, 10, 12, 6],
+//   15: [14, 11, 13, 7]
+// }
 
 // export const getGroupsKarMap = (
 //   variables: string[],
@@ -154,73 +154,73 @@ const cellsToCheck: Record<number, number[]> = {
 //   console.log(possibleGroup)
 // }
 
-export const getGroupsKarMap = (
-  variables: string[],
-  values: CellsKarMap[][]
-) => {
-  const indexesWithOne = getCellsWithZeroOrOne(values, 1)
-  const groups = []
-  const visited = new Set()
+// export const getGroupsKarMap = (
+//   variables: string[],
+//   values: CellsKarMap[][]
+// ) => {
+//   const indexesWithOne = getCellsWithZeroOrOne(values, 1)
+//   const groups = []
+//   const visited = new Set()
 
-  // Función para revisar si una celda puede agregarse a un grupo
-  const canAddToGroup = (cell, group) => {
-    return cellsToCheck[cell].every((neighbor) => !group.includes(neighbor))
-  }
+//   // Función para revisar si una celda puede agregarse a un grupo
+//   const canAddToGroup = (cell, group) => {
+//     return cellsToCheck[cell].every((neighbor) => !group.includes(neighbor))
+//   }
 
-  // Función que intenta formar un grupo a partir de una celda
-  const tryToFormGroup = (element, size) => {
-    const newGroup = [element]
-    const queue = [element]
-    visited.add(element)
+//   // Función que intenta formar un grupo a partir de una celda
+//   const tryToFormGroup = (element, size) => {
+//     const newGroup = [element]
+//     const queue = [element]
+//     visited.add(element)
 
-    while (queue.length > 0 && newGroup.length < size) {
-      const current = queue.shift()
-      const neighborCells = cellsToCheck[current]
+//     while (queue.length > 0 && newGroup.length < size) {
+//       const current = queue.shift()
+//       const neighborCells = cellsToCheck[current]
 
-      for (const cell of neighborCells) {
-        if (
-          indexesWithOne.includes(cell) &&
-          !visited.has(cell) &&
-          canAddToGroup(cell, newGroup)
-        ) {
-          newGroup.push(cell)
-          visited.add(cell)
-          queue.push(cell)
+//       for (const cell of neighborCells) {
+//         if (
+//           indexesWithOne.includes(cell) &&
+//           !visited.has(cell) &&
+//           canAddToGroup(cell, newGroup)
+//         ) {
+//           newGroup.push(cell)
+//           visited.add(cell)
+//           queue.push(cell)
 
-          // Si alcanzamos el tamaño deseado, terminamos
-          if (newGroup.length === size) {
-            break
-          }
-        }
-      }
-    }
+//           // Si alcanzamos el tamaño deseado, terminamos
+//           if (newGroup.length === size) {
+//             break
+//           }
+//         }
+//       }
+//     }
 
-    return newGroup.length === size ? newGroup : null
-  }
+//     return newGroup.length === size ? newGroup : null
+//   }
 
-  // Intentar formar grupos de tamaño 4 y luego 2
-  for (const element of indexesWithOne) {
-    if (visited.has(element)) continue
+//   // Intentar formar grupos de tamaño 4 y luego 2
+//   for (const element of indexesWithOne) {
+//     if (visited.has(element)) continue
 
-    // Buscar grupos de tamaño 4 primero
-    const groupOfFour = tryToFormGroup(element, 4)
-    if (groupOfFour) {
-      groups.push(groupOfFour)
-      continue
-    }
+//     // Buscar grupos de tamaño 4 primero
+//     const groupOfFour = tryToFormGroup(element, 4)
+//     if (groupOfFour) {
+//       groups.push(groupOfFour)
+//       continue
+//     }
 
-    // Luego buscar grupos de tamaño 2
-    const groupOfTwo = tryToFormGroup(element, 2)
-    if (groupOfTwo) {
-      groups.push(groupOfTwo)
-      continue
-    }
+//     // Luego buscar grupos de tamaño 2
+//     const groupOfTwo = tryToFormGroup(element, 2)
+//     if (groupOfTwo) {
+//       groups.push(groupOfTwo)
+//       continue
+//     }
 
-    // Finalmente grupos de tamaño 1 si no se encontró nada más grande
-    groups.push([element])
-    visited.add(element)
-  }
+//     // Finalmente grupos de tamaño 1 si no se encontró nada más grande
+//     groups.push([element])
+//     visited.add(element)
+//   }
 
-  // console.log(groups)
-  return groups
-}
+//   // console.log(groups)
+//   return groups
+// }

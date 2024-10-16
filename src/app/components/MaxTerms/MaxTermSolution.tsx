@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { getMaxTerms } from '@/app/lib/maxTerms'
+import { getMaxTerms } from '@/app/lib/maxTermsCore'
 import {
   Tooltip,
   TooltipContent,

@@ -5,7 +5,7 @@ import {
   getHeadersKarMap,
   getReduceExpression,
   referenceTableHeaders
-} from '@/app/lib/karnaughMap'
+} from '@/app/lib/karnaughMapCore'
 import {
   Table,
   TableBody,
