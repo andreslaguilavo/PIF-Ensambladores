@@ -12,9 +12,9 @@ import {
   TabSolution,
   TabsTopic
 } from '@components/shared/TabsTopic'
+import MinTermSolution from '@components/MinTerms/MinTermSolution'
 
-export default function MinTerms({ data }: { data: TruthTableData }) {
-  const minTerms = getMinTerms(data.data)
+export default function MinTerms() {
   return (
     <section id='min-terms'>
       <div className='flex gap-4 items-center justify-between'>
@@ -22,24 +22,7 @@ export default function MinTerms({ data }: { data: TruthTableData }) {
         <TabsTopic nameSection='min-terms'>
           <TabExplanation>sdsagsakjhjhjksahdlkajsh</TabExplanation>
           <TabSolution>
-            {' '}
-            <div className='text-center'>
-              {minTerms.map((minTerm, index) => (
-                <Fragment key={minTerm.index}>
-                  <TooltipProvider delayDuration={0}>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <span>{minTerm.minTerm}</span>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Indice : {minTerm.index}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                  <span>{index !== minTerms.length - 1 ? ' + ' : ''}</span>
-                </Fragment>
-              ))}
-            </div>
+            <MinTermSolution />
           </TabSolution>
         </TabsTopic>
       </div>

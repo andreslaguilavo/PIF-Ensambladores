@@ -8,14 +8,16 @@ import {
   TableRow,
   TableCaption
 } from '@components/ui/table'
-import type { TruthTableData } from '@/app/lib/truthTableCore'
-import TooltipInfo from '@components/shared/TooltipInfo'
 import {
   TabExplanation,
   TabSolution,
   TabsTopic
 } from '@components/shared/TabsTopic'
-export default function TruthTable({ data }: { data: TruthTableData }) {
+import { useData } from '../hooks/useData'
+
+export default function TruthTable() {
+  const { data } = useData()
+  console.log(data)
   return (
     <section id='truth-table'>
       <div className='flex gap-4 items-center justify-between'>
@@ -64,7 +66,7 @@ export default function TruthTable({ data }: { data: TruthTableData }) {
           </TabSolution>
         </TabsTopic>
       </div>
-      <div id='portal-truth-table'/>
+      <div id='portal-truth-table' />
     </section>
   )
 }
