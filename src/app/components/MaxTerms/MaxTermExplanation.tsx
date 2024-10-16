@@ -20,7 +20,7 @@ export default function MaxTermExplanation() {
         Productos (SoP).
       </p>
       <div>
-        <h3>Ejemplo</h3>
+        <h3>Ejemplo:</h3>
         <LogicTable
           caption={
             <p className='text-center'>

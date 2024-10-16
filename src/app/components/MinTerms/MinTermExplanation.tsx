@@ -19,7 +19,7 @@ export default function MinTermExplanation() {
         Se usa para obtener la función en su forma Producto de Sumas (PoS)
       </p>
       <div>
-        <h3>Ejemplo</h3>
+        <h3>Ejemplo:</h3>
         <LogicTable
           caption={
             <p className='text-center'>
