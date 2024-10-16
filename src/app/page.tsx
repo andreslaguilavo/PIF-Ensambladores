@@ -5,17 +5,19 @@ import MaxWidthWrapper from '@components/shared/MaxWidthWrapper'
 import HistorialCarousel from '@components/HistorialCarousel'
 import { useState } from 'react'
 import { useLocalStorage } from '@/app/hooks/useLocalStorage'
-import { generateTruthTable, TruthTableData } from '@/app/lib/truthTableCore'
+import { generateTruthTable } from '@/app/lib/truthTableCore'
 import TruthTable from '@components/TruthTable'
 import MaxTerms from '@components/MaxTerms'
 import TimeLine from '@components/TimeLine'
 import MinTerms from '@components/MinTerms'
 import KarnaughMap from '@components/KarnaughMap'
-import { useData } from './hooks/useData'
+import { useData } from '@/app/hooks/useData'
+import { useTab } from '@/app/hooks/useTab'
 
 export default function Home() {
   const [value, setValue] = useState('')
   const [historial, setHistorial] = useLocalStorage<string[]>('historial', [])
+  const { setCurrentTab } = useTab()
   const { setData } = useData()
 
   const saveHistorial = (value: string) => {
@@ -33,6 +35,7 @@ export default function Home() {
     setValue('')
     const truthTable = generateTruthTable(value)
     setData(truthTable)
+    setCurrentTab('solution')
   }
 
   const updateInputByHistorial = (value: string) => {

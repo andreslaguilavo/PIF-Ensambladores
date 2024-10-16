@@ -1,7 +1,13 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
 import Portal from './Portal'
-import type { PropsWithChildren, ReactElement } from 'react'
+import {
+  useEffect,
+  useState,
+  type PropsWithChildren,
+  type ReactElement
+} from 'react'
 import { useData } from '@/app/hooks/useData'
+import { useTab } from '@/app/hooks/useTab'
 
 interface TabsTopicProps {
   children:
@@ -12,8 +18,16 @@ interface TabsTopicProps {
 }
 
 export function TabsTopic({ children, nameSection }: TabsTopicProps) {
+  const [tab, setTab] = useState('explanation')
+  const { currentTab } = useTab()
+  const handleChange = (value: string) => {
+    setTab(value)
+  }
+  useEffect(() => {
+    setTab(currentTab)
+  }, [currentTab])
   return (
-    <Tabs defaultValue='explanation'>
+    <Tabs value={tab} onValueChange={handleChange}>
       <TabsList className='grid w-full grid-cols-2 bg-amber-200'>
         <TabsTrigger value={'explanation'}>Explicación</TabsTrigger>
         <TabsTrigger value={'solution'}>Solución</TabsTrigger>
@@ -29,10 +43,14 @@ export const TabExplanation = (props: PropsWithChildren) => {
 
 export const TabSolution = (props: PropsWithChildren) => {
   const { data } = useData()
-  if (data === null) return (
-    <TabsContent value='solution'>
-      <div className='text-center'>No hay datos. Ingresa una ecuación para ver su solución</div>
-    </TabsContent>
-  )
+  if (data === null) {
+    return (
+      <TabsContent value='solution'>
+        <div className='text-center'>
+          No hay datos. Ingresa una ecuación para ver su solución
+        </div>
+      </TabsContent>
+    )
+  }
   return <TabsContent value='solution'>{props.children}</TabsContent>
 }

@@ -1,9 +1,12 @@
 import { DataProvider } from '@/app/hooks/useData'
+import { TabProvider } from '@/app/hooks/useTab'
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <DataProvider>{children}</DataProvider>
+      <DataProvider>
+        <TabProvider>{children}</TabProvider>
+      </DataProvider>
     </>
   )
 }
