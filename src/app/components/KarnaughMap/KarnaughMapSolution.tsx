@@ -28,7 +28,7 @@ export default function KarnaughMapSolution() {
   const [hRows, hCols] = getHeadersKarMap(variables)
   const reducedExpression = getReduceExpression(variables, karnaughData)
   return (
-    <>
+    <div className='flex flex-col gap-10'>
       <Table className='overflow-y-auto'>
         <TableCaption>Mapa de Karnaugh</TableCaption>
         <TableHeader>
@@ -71,6 +71,6 @@ export default function KarnaughMapSolution() {
           </small>
         </div>
       </div>
-    </>
+    </div>
   )
 }
