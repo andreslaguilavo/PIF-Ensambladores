@@ -23,7 +23,7 @@ export const referenceTableHeaders: Record<number, HeadersKarMap> = {
 const referenceTablePositions: Record<number, CellsKarMap[][]> = {
   2: [
     [0, 1],
-    [3, 2]
+    [2, 3]
   ],
   3: [
     [0, 1, 3, 2],
