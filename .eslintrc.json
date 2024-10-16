@@ -26,7 +26,8 @@
     "@typescript-eslint/no-confusing-void-expression": "off",
     "@typescript-eslint/no-floating-promises": "off",
     "react-hooks/exhaustive-deps": "off",
-    "@typescript-eslint/non-nullable-type-assertion-style": "off"
+    "@typescript-eslint/non-nullable-type-assertion-style": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off"
   },
   "ignorePatterns": ["src/app/components/ui/*.tsx"]
 }

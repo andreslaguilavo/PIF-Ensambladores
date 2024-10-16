@@ -5,20 +5,19 @@ import MaxWidthWrapper from '@components/shared/MaxWidthWrapper'
 import HistorialCarousel from '@components/HistorialCarousel'
 import { useState } from 'react'
 import { useLocalStorage } from '@/app/hooks/useLocalStorage'
-import {
-  generateTruthTable,
-  type TruthTableData
-} from '@/app/lib/truthTableCore'
+import { generateTruthTable, TruthTableData } from '@/app/lib/truthTableCore'
 import TruthTable from '@components/TruthTable'
 import MaxTerms from '@components/MaxTerms'
 import TimeLine from '@components/TimeLine'
 import MinTerms from '@components/MinTerms'
 import KarnaughMap from '@components/KarnaughMap'
+import { useData } from './hooks/useData'
 
 export default function Home() {
   const [value, setValue] = useState('')
   const [historial, setHistorial] = useLocalStorage<string[]>('historial', [])
-  const [data, setData] = useState<TruthTableData | null>(null)
+  const { setData } = useData()
+
   const saveHistorial = (value: string) => {
     setHistorial((prev) => {
       if (historial.length > 10) {
@@ -39,7 +38,6 @@ export default function Home() {
   const updateInputByHistorial = (value: string) => {
     setValue(value)
   }
-
   return (
     <main className='min-h-screen font-firacode '>
       <MaxWidthWrapper>
@@ -64,17 +62,16 @@ export default function Home() {
               onClickBadge={updateInputByHistorial}
             />
           </div>
-          {data !== null && (
-            <div className='relative w-full flex  gap-5'>
-              <TimeLine />
-              <div className='w-full'>
-                <TruthTable data={data} />
-                <MaxTerms data={data} />
-                <MinTerms data={data} />
-                <KarnaughMap data={data}/>
-              </div>
+
+          <div className='relative w-full flex  gap-5'>
+            <TimeLine />
+            <div className='w-full'>
+              <TruthTable />
+              <MaxTerms />
+              <MinTerms />
+              <KarnaughMap />
             </div>
-          )}
+          </div>
         </div>
       </MaxWidthWrapper>
     </main>
