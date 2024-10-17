@@ -25,6 +25,8 @@ La aplicación permite la generación de minterminos y maxterminos a partir de l
 
 La aplicación incluye una funcionalidad para obtener la expresión lógica reducida utilizando el método de Quine-McCluskey. Esta funcionalidad simplifica las expresiones lógicas para facilitar su implementación en circuitos digitales.
 
+## Proyecto en Producción
+El proyecto se encuentra alojado en https://compuertas-logicas.vercel.app/
 
 ## Tecnologías Utilizadas
 
