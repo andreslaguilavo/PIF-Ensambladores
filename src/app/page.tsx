@@ -48,7 +48,8 @@ export default function Home() {
     setValue(value)
   }
   return (
-    <main className='min-h-screen font-firacode '>
+    <main className='min-h-screen font-firacode relative'>
+      <div className='absolute inset-0 -z-10  w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]'/>
       <MaxWidthWrapper>
         <div className='flex flex-col justify-center items-center gap-5'>
           <h1 className='font-display text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl xl:text-6.5xl text-center'>
@@ -62,7 +63,7 @@ export default function Home() {
             <form onSubmit={evalEquation} className='flex w-full gap-5'>
               <Input
                 placeholder='A+B'
-                className='font-bold text-2xl h-14'
+                className='font-bold text-2xl h-14 bg-white'
                 value={value}
                 onChange={(evt) => setValue(evt.target.value)}
               />
