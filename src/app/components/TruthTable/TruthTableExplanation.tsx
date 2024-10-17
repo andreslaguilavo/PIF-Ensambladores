@@ -95,7 +95,7 @@ export default function TruthTableExplanation() {
             <span className='font-medium'>NOT: </span>
             La operación NOT es una operación unaria que invierte la entrada. Si
             la entrada es "1", la salida será "0", y viceversa.
-            <LogicTable caption='NOT' dataValues={logicTablesData.OR} />
+            <LogicTable caption='NOT' dataValues={logicTablesData.NOT} />
           </div>
           <div className='flex flex-col gap-2 border rounded-md p-5 bg-white hover:bg-slate-50'>
             <span className='font-medium'>NAND: </span>
