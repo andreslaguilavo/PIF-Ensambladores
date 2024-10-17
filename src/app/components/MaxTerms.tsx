@@ -9,7 +9,7 @@ import MaxTermExplanation from '@components/MaxTerms/MaxTermExplanation'
 export default function MaxTerms() {
   return (
     <section id='max-terms'>
-      <div className='flex gap-4 items-center justify-between'>
+      <div className='flex flex-col md:flex-row gap-4 items-center justify-between'>
         <h2>Max Términos</h2>
         <TabsTopic nameSection='max-terms'>
           <TabExplanation>

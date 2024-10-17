@@ -9,10 +9,12 @@ import KarnaughMapExplanation from './KarnaughMap/KarnaughMapExplanation'
 export default function KarnaughMap() {
   return (
     <section id='karnaugh-map'>
-      <div className='flex gap-4 items-center justify-between'>
+      <div className='flex flex-col md:flex-row gap-4 items-center justify-between'>
         <h2>Mapa de Karnaugh </h2>
         <TabsTopic nameSection='karnaugh-map'>
-          <TabExplanation><KarnaughMapExplanation/></TabExplanation>
+          <TabExplanation>
+            <KarnaughMapExplanation />
+          </TabExplanation>
           <TabSolution>
             <KarnaughMapSolution />
           </TabSolution>

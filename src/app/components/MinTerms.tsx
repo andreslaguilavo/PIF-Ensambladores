@@ -9,7 +9,7 @@ import MinTermExplanation from './MinTerms/MinTermExplanation'
 export default function MinTerms() {
   return (
     <section id='min-terms'>
-      <div className='flex gap-4 items-center justify-between'>
+      <div className='flex flex-col md:flex-row gap-4 items-center justify-between'>
         <h2>Min Términos</h2>
         <TabsTopic nameSection='min-terms'>
           <TabExplanation>

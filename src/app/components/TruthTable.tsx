@@ -11,7 +11,7 @@ import TruthTableExplanation from '@components/TruthTable/TruthTableExplanation'
 export default function TruthTable() {
   return (
     <section id='truth-table'>
-      <div className='flex gap-4 items-center justify-between'>
+      <div className='flex flex-col md:flex-row gap-4 items-center justify-between'>
         <h2>Tabla de verdad </h2>
         <TabsTopic nameSection='truth-table'>
           <TabExplanation>
