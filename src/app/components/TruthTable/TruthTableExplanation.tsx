@@ -77,7 +77,7 @@ export default function TruthTableExplanation() {
       </p>
       <div className='flex flex-col gap-2'>
         <h3 className='mb-2'>Operaciones lógicas en las tablas de verdad</h3>
-        <div className='grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5'>
+        <div className='grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-5'>
           <div className='flex flex-col gap-2 border rounded-md p-5'>
             <span className='font-medium'>AND: </span>
             La operación AND toma dos o más entradas y solo produce una salida

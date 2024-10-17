@@ -46,7 +46,7 @@ export default function TimeLine() {
   }, [])
 
   return (
-    <div className='flex flex-col sticky top-10 h-[calc(100vh-80px)]'>
+    <div className='md:flex flex-col sticky top-10 h-[calc(100vh-80px)] hidden'>
       <div className='w-[2px] bg-black/80 flex h-full justify-center absolute'/>
       {sections.map((section) => (
         <div
