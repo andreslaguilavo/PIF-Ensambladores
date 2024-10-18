@@ -1,8 +1,15 @@
 import type { TruthTableData } from '@/app/lib/truthTableCore'
+
 interface MinTermsInterface {
   minTerm: string
   index: number
 }
+/**
+ * Genera los min términos a partir de los datos de una tabla de verdad.
+ *
+ * @param {TruthTableData['data']} data - Los datos de la tabla de verdad.
+ * @returns {MinTermsInterface[]} - Un array de objetos que representan los min términos y sus índices.
+ */
 export const getMinTerms = (data: TruthTableData['data']) => {
   const minTerms: MinTermsInterface[] = []
   data.forEach((item, index) => {

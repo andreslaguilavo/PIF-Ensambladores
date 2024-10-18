@@ -7,8 +7,16 @@ jsep.addBinaryOp('!^', 10) // Add Symbol for XOR
 
 export type VariablesType = Record<string, boolean>
 export type TruthTableData = ReturnType<typeof generateTruthTable>
+
+/**
+ * Genera una tabla de verdad a partir de una expresión lógica.
+ *
+ * @param {string} expression - La expresión lógica para la cual se generará la tabla de verdad.
+ * @returns {TruthTableData} - Un objeto que contiene los encabezados y los datos de la tabla de verdad.
+ * @throws {Error} - Si no hay variables, hay demasiadas variables o muy pocas variables en la expresión.
+ */
 export const generateTruthTable = (expression: string) => {
-  // Get the variables from the expression
+  // Obtiene las variables de la expresión
   const variables = expression.toUpperCase().match(/[A-Z]/g) as string[] | null
   const uniqueVariables = Array.from(new Set(variables))
   if (uniqueVariables === null) throw new Error('No hay variables')
@@ -19,11 +27,9 @@ export const generateTruthTable = (expression: string) => {
   for (let i = 0; i < 2 ** uniqueVariables.length; i++) {
     const row: Record<string, boolean> = {}
     uniqueVariables.forEach((variable, index) => {
-      // Logic to create the truth table
+      // Logica para crear la tabla de verdad
       row[variable] = Boolean(i & (1 << (uniqueVariables.length - index - 1)))
     })
-    // console.log('Resultado:', evaluateExpression(expression, row))
-    console.log(row)
     truthTable.push({
       variables: row,
       results: evaluateExpression(expression.toUpperCase(), row)
@@ -40,17 +46,32 @@ interface EquationsType {
   result: boolean
 }
 
+/**
+ * Evalúa una expresión lógica con un conjunto de variables.
+ *
+ * @param {string} expression - La expresión lógica a evaluar.
+ * @param {VariablesType} variables - Un objeto que contiene las variables y sus valores booleanos.
+ * @returns {EquationsType[]} - Un array de objetos que representan las ecuaciones y sus resultados.
+ */
 export const evaluateExpression = (
   expression: string,
   variables: VariablesType
 ) => {
-  const equations: EquationsType[] = [] // Array to store the equations
-  const ast = jsep(expression) // Parse the expression to an AST (Abstract Syntax Tree)
+  const equations: EquationsType[] = []
+  const ast = jsep(expression) // Transforma la expresión lógica a un árbol de sintaxis abstracta
   evaluateAndAddValue(ast, variables, equations)
-  // console.log('Ecuaciones registradas:', equations)
   return equations
 }
 
+/**
+ * Evalúa un nodo de expresión y agrega el valor resultante a las ecuaciones.
+ *
+ * @param {Expression} node - El nodo de expresión a evaluar.
+ * @param {VariablesType} variables - Un objeto que contiene las variables y sus valores booleanos.
+ * @param {EquationsType[]} equations - Un array de objetos que representan las ecuaciones y sus resultados.
+ * @returns {boolean} - El valor booleano resultante de la evaluación del nodo.
+ * @throws {Error} - Si el tipo de nodo es desconocido o si una variable no está definida.
+ */
 function evaluateAndAddValue(
   node: Expression,
   variables: VariablesType,
@@ -129,6 +150,12 @@ function evaluateAndAddValue(
   throw new Error(`Tipo de nodo desconocido: ${node.type}`)
 }
 
+/**
+ * Obtiene la expresión en forma de cadena de un nodo de expresión.
+ *
+ * @param {Expression} node - El nodo de expresión del cual obtener la cadena.
+ * @returns {string} - La expresión en forma de cadena.
+ */
 function getExpression(node: Expression): string {
   if (node.type === 'Identifier') {
     return node.name as string
