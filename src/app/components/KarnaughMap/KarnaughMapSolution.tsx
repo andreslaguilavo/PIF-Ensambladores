@@ -35,7 +35,7 @@ export default function KarnaughMapSolution() {
   const groups1s = findGroups(karnaughData)
 
   return (
-    <div className='flex flex-col gap-10'>
+    <div className='flex flex-col gap-14'>
       <Table className='overflow-y-auto'>
         <TableCaption>Mapa de Karnaugh</TableCaption>
         <TableHeader>
@@ -95,6 +95,10 @@ export default function KarnaughMapSolution() {
               </div>
             ))}
           </div>
+          <small className='text-xs text-slate-400 font-light text-center'>
+            Visualiza los grupos en el mapa con pasando el mouse por encima de
+            los grupos.
+          </small>
         </div>
       )}
       <div className='text-center flex flex-col gap-2 '>
