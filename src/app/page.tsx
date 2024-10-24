@@ -62,7 +62,7 @@ export default function Home() {
           <div className='flex flex-col w-full md:w-3/5 justify-center items-center gap-5'>
             <form onSubmit={evalEquation} className='flex w-full gap-5'>
               <Input
-                placeholder='A+B'
+                placeholder='A & B'
                 className='font-bold text-2xl h-14 bg-white'
                 value={value}
                 onChange={(evt) => setValue(evt.target.value)}
