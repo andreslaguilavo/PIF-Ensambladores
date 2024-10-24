@@ -18,8 +18,8 @@ export default function TruthTableSolution() {
     <TableHeader>
       <TableRow>
         <TableHead className='min-w'></TableHead>
-        {data?.headers?.map((header: string) => (
-          <TableHead key={header} className='text-center font-bold'>
+        {data?.headers?.map((header: string, index: number) => (
+          <TableHead key={index} className='text-center font-bold'>
             {header}
           </TableHead>
         ))}
