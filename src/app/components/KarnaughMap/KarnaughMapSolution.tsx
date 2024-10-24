@@ -1,11 +1,12 @@
 import { useData } from '@/app/hooks/useData'
 import {
+  findGroups,
   generateKarnaughMap,
-  // getGroupsKarMap,
   getHeadersKarMap,
   getReduceExpression,
   referenceTableHeaders
 } from '@/app/lib/karnaughMapCore'
+import { cn } from '@/lib/utils'
 import {
   Table,
   TableBody,
@@ -15,10 +16,14 @@ import {
   TableRow,
   TableCaption
 } from '@components/ui/table'
+import { useState } from 'react'
 
 export default function KarnaughMapSolution() {
   const { data } = useData()
+  const [hoveredGroup, setHoveredGroup] = useState<number | null>(null)
+
   if (!data) return null
+
   const variables = Object.keys(data?.data[0].variables)
   const results = data?.data.map((item) => {
     return item.results[item.results.length - 1].result
@@ -27,6 +32,8 @@ export default function KarnaughMapSolution() {
   const karnaughData = generateKarnaughMap(variables, results)
   const [hRows, hCols] = getHeadersKarMap(variables)
   const reducedExpression = getReduceExpression(variables, karnaughData)
+  const groups1s = findGroups(karnaughData)
+
   return (
     <div className='flex flex-col gap-10'>
       <Table className='overflow-y-auto'>
@@ -47,13 +54,24 @@ export default function KarnaughMapSolution() {
         </TableHeader>
         <TableBody>
           <TableRow></TableRow>
-          {karnaughData.map((row, index: number) => (
-            <TableRow key={index}>
-              <TableHead key={index} className='text-center font-bold'>
-                {referenceTableHeaders[variables.length].rows[index]}
+          {karnaughData.map((row, indexCol: number) => (
+            <TableRow key={indexCol}>
+              <TableHead key={indexCol} className='text-center font-bold'>
+                {referenceTableHeaders[variables.length].rows[indexCol]}
               </TableHead>
-              {row.map((value, index: number) => (
-                <TableCell key={index} className='text-center'>
+              {row.map((value, indexRow: number) => (
+                <TableCell
+                  key={indexRow}
+                  className={cn(
+                    'text-center',
+                    hoveredGroup !== null &&
+                      groups1s[hoveredGroup].some(
+                        ([x, y]) => x === indexCol && y === indexRow
+                      ) &&
+                      'bg-amber-300'
+                  )}
+                  data-cell-coordinate={[indexCol, indexRow]}
+                >
                   {value ?? '-'}
                 </TableCell>
               ))}
@@ -61,6 +79,24 @@ export default function KarnaughMapSolution() {
           ))}
         </TableBody>
       </Table>
+      {groups1s.length > 0 && (
+        <div className='flex flex-col gap-2'>
+          <h3 className='text-center font-bold'>Grupos de 1's</h3>
+          <div className='flex flex-col gap-2'>
+            {groups1s.map((group, index) => (
+              <div
+                key={index}
+                className='flex gap-2'
+                onMouseEnter={() => setHoveredGroup(index)}
+                onMouseLeave={() => setHoveredGroup(null)}
+              >
+                <span className='font-bold'>Grupo {index + 1}:</span>
+                <span>{group.map(([x, y]) => `[${x},${y}]`).join(', ')}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       <div className='text-center flex flex-col gap-2 '>
         La expresión reducida es: <br />
         <div className='flex flex-col gap-2'>

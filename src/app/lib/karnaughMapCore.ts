@@ -137,3 +137,84 @@ export const getCellsWithZeroOrOne = (
   }
   return cellsWithOne
 }
+
+/**
+ * Encuentra grupos de 1s en un mapa de Karnaugh.
+ *
+ * @param {number[][]} kMap - Una matriz bidimensional que representa el mapa de Karnaugh.
+ * @returns {number[][][]} - Un array de grupos, donde cada grupo es un array de coordenadas [fila, columna].
+ */
+export function findGroups(kMap: CellsKarMap[][]): number[][][] {
+  const groups: number[][][] = []
+  const visited = new Set<string>()
+
+  const rows = kMap.length
+  const cols = kMap[0].length
+
+  const getLinearIndex = (row: number, col: number): string => `${row},${col}`
+
+  const canFormRectangle = (
+    startRow: number,
+    startCol: number,
+    height: number,
+    width: number
+  ): boolean => {
+    for (let i = 0; i < height; i++) {
+      for (let j = 0; j < width; j++) {
+        const row = startRow + i
+        const col = startCol + j
+        if (
+          row >= rows ||
+          col >= cols ||
+          kMap[row][col] !== 1 ||
+          visited.has(getLinearIndex(row, col))
+        ) {
+          return false
+        }
+      }
+    }
+    return true
+  }
+
+  const markVisited = (
+    startRow: number,
+    startCol: number,
+    height: number,
+    width: number
+  ) => {
+    for (let i = 0; i < height; i++) {
+      for (let j = 0; j < width; j++) {
+        const row = startRow + i
+        const col = startCol + j
+        visited.add(getLinearIndex(row, col))
+      }
+    }
+  }
+
+  // Tamaños de grupo posibles en orden descendente
+  const groupSizes = [16, 8, 4, 2, 1]
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (kMap[i][j] === 1 && !visited.has(getLinearIndex(i, j))) {
+        for (const size of groupSizes) {
+          const height = Math.min(size, rows - i)
+          const width = Math.min(size / height, cols - j)
+          if (canFormRectangle(i, j, height, width)) {
+            const group: number[][] = []
+            for (let x = 0; x < height; x++) {
+              for (let y = 0; y < width; y++) {
+                group.push([i + x, j + y])
+              }
+            }
+            groups.push(group)
+            markVisited(i, j, height, width)
+            break
+          }
+        }
+      }
+    }
+  }
+
+  return groups
+}
