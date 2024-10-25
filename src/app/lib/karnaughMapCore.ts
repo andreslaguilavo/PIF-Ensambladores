@@ -141,28 +141,37 @@ export const getCellsWithZeroOrOne = (
 /**
  * Encuentra grupos de 1s en un mapa de Karnaugh.
  *
- * @param {number[][]} kMap - Una matriz bidimensional que representa el mapa de Karnaugh.
+ * @param {CellsKarMap[][]} kMap - Una matriz bidimensional que representa el mapa de Karnaugh.
  * @returns {number[][][]} - Un array de grupos, donde cada grupo es un array de coordenadas [fila, columna].
  */
 export function findGroups(kMap: CellsKarMap[][]): number[][][] {
+  // Array para almacenar los grupos de 1s encontrados
   const groups: number[][][] = []
+  // Conjunto para almacenar las celdas ya visitadas
   const visited = new Set<string>()
 
+  // Número de filas en el mapa de Karnaugh
   const rows = kMap.length
+  // Número de columnas en el mapa de Karnaugh
   const cols = kMap[0].length
 
+  // Función para obtener un índice lineal a partir de una coordenada [fila, columna]
   const getLinearIndex = (row: number, col: number): string => `${row},${col}`
 
+  // Función auxiliar para verificar si se puede formar un rectángulo de 1s a partir de una celda inicial
   const canFormRectangle = (
     startRow: number,
     startCol: number,
     height: number,
     width: number
   ): boolean => {
+    // Itera sobre la altura del rectángulo
     for (let i = 0; i < height; i++) {
+      // Itera sobre el ancho del rectángulo
       for (let j = 0; j < width; j++) {
         const row = startRow + i
         const col = startCol + j
+        // Verifica si la celda actual está fuera de los límites, no contiene un 1 o ya ha sido visitada
         if (
           row >= rows ||
           col >= cols ||
@@ -176,16 +185,20 @@ export function findGroups(kMap: CellsKarMap[][]): number[][][] {
     return true
   }
 
+  // Función auxiliar para marcar un grupo de celdas como visitadas
   const markVisited = (
     startRow: number,
     startCol: number,
     height: number,
     width: number
   ) => {
+    // Itera sobre la altura del grupo
     for (let i = 0; i < height; i++) {
+      // Itera sobre el ancho del grupo
       for (let j = 0; j < width; j++) {
         const row = startRow + i
         const col = startCol + j
+        // Marca la celda actual como visitada
         visited.add(getLinearIndex(row, col))
       }
     }
@@ -194,20 +207,27 @@ export function findGroups(kMap: CellsKarMap[][]): number[][][] {
   // Tamaños de grupo posibles en orden descendente
   const groupSizes = [16, 8, 4, 2, 1]
 
+  // Itera sobre cada celda del mapa de Karnaugh
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
+      // Si la celda contiene un 1 y no ha sido visitada
       if (kMap[i][j] === 1 && !visited.has(getLinearIndex(i, j))) {
+        // Intenta formar grupos de diferentes tamaños
         for (const size of groupSizes) {
           const height = Math.min(size, rows - i)
           const width = Math.min(size / height, cols - j)
+          // Si se puede formar un rectángulo del tamaño actual
           if (canFormRectangle(i, j, height, width)) {
             const group: number[][] = []
+            // Agrega las coordenadas del grupo al array
             for (let x = 0; x < height; x++) {
               for (let y = 0; y < width; y++) {
                 group.push([i + x, j + y])
               }
             }
+            // Agrega el grupo al array de grupos
             groups.push(group)
+            // Marca las celdas del grupo como visitadas
             markVisited(i, j, height, width)
             break
           }
@@ -216,5 +236,6 @@ export function findGroups(kMap: CellsKarMap[][]): number[][][] {
     }
   }
 
+  // Devuelve el array de grupos formados
   return groups
 }
