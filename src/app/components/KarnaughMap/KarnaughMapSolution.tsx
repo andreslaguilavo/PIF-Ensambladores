@@ -63,7 +63,7 @@ export default function KarnaughMapSolution() {
                 <TableCell
                   key={indexRow}
                   className={cn(
-                    'text-center',
+                    'text-center duration-200 ease-in transition-colors',
                     hoveredGroup !== null &&
                       groups1s[hoveredGroup].some(
                         ([x, y]) => x === indexCol && y === indexRow
